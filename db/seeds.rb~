@@ -1,0 +1,35 @@
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+#
+# Examples:
+#
+#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
+#   Mayor.create(name: 'Emanuel', city: cities.first)
+
+User.destory_all
+User.create! [
+              { username: "Fiorina", password_digest: "ex_HP_woman" },
+              { username: "Trump",   password_digest: "kusobaka"    },
+              { username: "Carson",  password_digest: "dont_know"   },
+              { username: "Clinton", password_digest: "OldWoman"    }
+             ]
+=begin
+User.find_by(username: "Fiorina").profile.create! {gender: "woman", birth_year: 1954, first_name: "Carly",  last_name: "Fiorina" }
+User.find_by(username: "Trump"  ).profile.create! {gender: "man",   birth_year: 1946, first_name: "Donald", last_name: "Trump"  }
+User.find_by(username: "Carson" ).profile.create! {gender: "man",   birth_year: 1951, first_name: "Ben",    last_name: "Carson" }
+User.find_by(username: "Clinton").profile.create! {gender: "woman", birth_year: 1947, first_name: "Hillary",last_name: "Clinton"}
+
+names = ["Fiorina", "Trump", "Carson", "Clinton"]
+names.each do |p|
+  User.find_by(username: p).todo_lists.create! [{list_name: "L#{p}_1", list_due_date: Date.today + 1.year}]
+end
+
+names.each do |p|
+  5.times do |i|
+    todo_items=[]
+    todo_items << {due_date:Date.today + 1.year, title:"item_#{p}_#{i+1}", text:"#{i+1}th item of first todo_list for #{p}", completed: false}
+  end
+  User.find_by(username: p).todo_lists.first.todo_items.create! todo_items
+end
+
+=end
