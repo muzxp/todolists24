@@ -7,8 +7,20 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  
+<% logger.debug("HERE3.9 @@@@@@@@@@@@@@@@@@@@@@@:") %>
+<% if logged_in? then %>
+<div style='float: right;'>
+<% logger.debug("HERE4.0 @@@@@@@@@@@@@@@@@@@@@@@") %>
 
+Logged in as <%= current_user.username %> |
+<%= link_to "Logout", logout_path, method: :delete %>
+</div>
+<% end %>
 <%= yield %>
 
 </body>
 </html>
+
+
+
